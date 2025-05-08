@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Alumni</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <header>
+        <h1>Data Alumni</h1>
+        <button class="back-button" onclick="window.location.href='index.html'">Kembali</button>
+    </header>
 
+    <main>
+        <div class="nis-input-container">
+            <input type="text" id="nisInput" placeholder="Masukkan NIS">
+            <button onclick="searchAlumni()">Cari</button>
+        </div>
+
+        <div id="alumniDashboard" class="hidden">
+            <div class="alumni-grid">
+                <div class="alumni-photo-container">
+                    <img id="alumniPhoto" src="" alt="Foto Alumni" onclick="showPhotoModal(this.src)">
+                </div>
+                <div class="alumni-info">
+                    <h2 id="alumniName"></h2>
+                    <p id="alumniTtl"></p>
+                    <p id="alumniNis"></p>
+                    <p id="alumniNisn"></p>
+                    
+                    <div class="document-links">
+                        <button onclick="downloadDocument('raport')">Lihat Raport</button>
+                        <button onclick="downloadDocument('ijazah')">Lihat Ijazah</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="notFoundMessage" class="hidden">
+            <p>Data alumni tidak ditemukan. Silakan cek NIS yang Anda masukkan.</p>
+        </div>
+    </main>
+
+    <!-- Modal untuk foto -->
+    <div id="photoModal" class="modal hidden">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalPhoto">
+    </div>
+
+    <script src="/js/alumni.js"></script>
+</body>
+</html>
