@@ -1,52 +1,145 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Alumni</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="/assets/favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Alumni</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="/assets/favicon.ico" />
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --card: #e2d4ba;
+      --text: #3e3e3e;
+      --accent: #8c6e5a;
+      --hover: #d9cbb1;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background-color: var(--accent);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: var(--card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .card:hover {
+      background-color: var(--hover);
+    }
+
+    .card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      margin: 0;
+    }
+
+    .info-section {
+      padding: 2rem;
+      background-color: #faf8f3;
+    }
+
+    .info-section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-card {
+      background-color: #fffefc;
+      border-left: 4px solid var(--accent);
+      margin: 1rem auto;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 600px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--accent);
+      color: white;
+    }
+
+    @media (min-width: 600px) {
+      .card-container {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Portal Alumni</h1>
-    </header>
+  <header>
+    <h1>Portal Alumni</h1>
+  </header>
 
-    <main>
-        <section class="card-container">
-            <div class="card" onclick="navigateTo('alumni.html')">
-                <h2>Alumni</h2>
-                <p>Lihat data alumni</p>
-            </div>
-            
-            <div class="card" onclick="navigateTo('admin.html')">
-                <h2>Admin</h2>
-                <p>Kelola data alumni</p>
-            </div>
-        </section>
+  <main>
+    <section class="card-container">
+      <div class="card" onclick="navigateTo('alumni.html')">
+        <h2>Alumni</h2>
+        <p>Lihat data alumni</p>
+      </div>
 
-        <section class="info-section">
-            <h2>Cara Penggunaan</h2>
-            <div class="info-card">
-                <h3>Untuk Alumni</h3>
-                <p>1. Klik tombol Alumni</p>
-                <p>2. Masukkan NIS Anda</p>
-                <p>3. Lihat dan unduh data Anda</p>
-            </div>
-            <div class="info-card">
-                <h3>Untuk Admin</h3>
-                <p>1. Klik tombol Admin</p>
-                <p>2. Masukkan PIN (default: 12345)</p>
-                <p>3. Kelola data alumni</p>
-            </div>
-        </section>
-    </main>
+      <div class="card" onclick="navigateTo('admin.html')">
+        <h2>Admin</h2>
+        <p>Kelola data alumni</p>
+      </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2023 Portal Alumni</p>
-    </footer>
+    <section class="info-section">
+      <h2>Cara Penggunaan</h2>
+      <div class="info-card">
+        <h3>Untuk Alumni</h3>
+        <p>1. Klik tombol Alumni</p>
+        <p>2. Masukkan NIS Anda</p>
+        <p>3. Lihat dan unduh data Anda</p>
+      </div>
+      <div class="info-card">
+        <h3>Untuk Admin</h3>
+        <p>1. Klik tombol Admin</p>
+        <p>2. Masukkan PIN (default: 12345)</p>
+        <p>3. Kelola data alumni</p>
+      </div>
+    </section>
+  </main>
 
-    <script src="/js/main.js"></script>
+  <footer>
+    <p>&copy; 2023 Portal Alumni</p>
+  </footer>
+
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+  </script>
 </body>
 </html>
