@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Alumni</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+    <header>
+        <h1>Portal Alumni</h1>
+    </header>
 
+    <main>
+        <section class="card-container">
+            <div class="card" onclick="navigateTo('alumni.html')">
+                <h2>Alumni</h2>
+                <p>Lihat data alumni</p>
+            </div>
+            
+            <div class="card" onclick="navigateTo('admin.html')">
+                <h2>Admin</h2>
+                <p>Kelola data alumni</p>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2>Cara Penggunaan</h2>
+            <div class="info-card">
+                <h3>Untuk Alumni</h3>
+                <p>1. Klik tombol Alumni</p>
+                <p>2. Masukkan NIS Anda</p>
+                <p>3. Lihat dan unduh data Anda</p>
+            </div>
+            <div class="info-card">
+                <h3>Untuk Admin</h3>
+                <p>1. Klik tombol Admin</p>
+                <p>2. Masukkan PIN (default: 12345)</p>
+                <p>3. Kelola data alumni</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Portal Alumni</p>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
