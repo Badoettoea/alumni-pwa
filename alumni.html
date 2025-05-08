@@ -1,54 +1,99 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Alumni</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="manifest" href="/manifest.json">
-</head>
-<body>
-    <header>
-        <h1>Data Alumni</h1>
-        <button class="back-button" onclick="window.location.href='index.html'">Kembali</button>
-    </header>
+<!-- Modifikasi 1: admin.html -->
+<script>
+const SUPABASE_URL = "https://fcrzfzpfzuqqcsivwmyo.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjcnpmenBmenVxcWNzaXZ3bXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY2NTAyMjEsImV4cCI6MjA2MjIyNjIyMX0.FYSZKX6TY0tmHAoZnw9EscPEJqIncEhlJrLs_735nLg";
 
-    <main>
-        <div class="nis-input-container">
-            <input type="text" id="nisInput" placeholder="Masukkan NIS">
-            <button onclick="searchAlumni()">Cari</button>
-        </div>
+async function processCSV() {
+    const file = document.getElementById('csvFile').files[0];
+    if (!file) return;
+    const text = await file.text();
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',');
+    const rows = lines.slice(1).map(line => line.split(','));
 
-        <div id="alumniDashboard" class="hidden">
-            <div class="alumni-grid">
-                <div class="alumni-photo-container">
-                    <img id="alumniPhoto" src="" alt="Foto Alumni" onclick="showPhotoModal(this.src)">
-                </div>
-                <div class="alumni-info">
-                    <h2 id="alumniName"></h2>
-                    <p id="alumniTtl"></p>
-                    <p id="alumniNis"></p>
-                    <p id="alumniNisn"></p>
-                    
-                    <div class="document-links">
-                        <button onclick="downloadDocument('raport')">Lihat Raport</button>
-                        <button onclick="downloadDocument('ijazah')">Lihat Ijazah</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    for (const row of rows) {
+        const data = {};
+        headers.forEach((h, i) => data[h.trim()] = row[i].trim());
+        await fetch(`${SUPABASE_URL}/rest/v1/alumni`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify(data)
+        });
+    }
+    alert("Data berhasil diupload!");
+}
 
-        <div id="notFoundMessage" class="hidden">
-            <p>Data alumni tidak ditemukan. Silakan cek NIS yang Anda masukkan.</p>
-        </div>
-    </main>
+document.getElementById("alumniForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = {
+        userid: document.getElementById('userid').value,
+        nama: document.getElementById('nama').value,
+        ttl: document.getElementById('ttl').value,
+        nis: document.getElementById('nis').value,
+        nisn: document.getElementById('nisn').value,
+        urlfoto: document.getElementById('urlfoto').value,
+        urlraport: document.getElementById('urlraport').value,
+        urlijazah: document.getElementById('urlijazah').value
+    };
 
-    <!-- Modal untuk foto -->
-    <div id="photoModal" class="modal hidden">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalPhoto">
-    </div>
+    await fetch(`${SUPABASE_URL}/rest/v1/alumni`, {
+        method: 'POST',
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+        },
+        body: JSON.stringify(data)
+    });
+    alert("Data berhasil disimpan!");
+    e.target.reset();
+});
+</script>
 
-    <script src="/js/alumni.js"></script>
-</body>
-</html>
+<!-- Modifikasi 2: alumni.html -->
+<script>
+async function searchAlumni() {
+    const nis = document.getElementById("nisInput").value.trim();
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/alumni?nis=eq.${nis}`, {
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+    });
+    const data = await res.json();
+
+    if (data.length > 0) {
+        const alumni = data[0];
+        document.getElementById("alumniName").textContent = alumni.nama;
+        document.getElementById("alumniTtl").textContent = alumni.ttl;
+        document.getElementById("alumniNis").textContent = `NIS: ${alumni.nis}`;
+        document.getElementById("alumniNisn").textContent = `NISN: ${alumni.nisn}`;
+        document.getElementById("alumniPhoto").src = alumni.urlfoto;
+
+        document.getElementById("alumniDashboard").classList.remove("hidden");
+        document.getElementById("notFoundMessage").classList.add("hidden");
+
+        window.downloadDocument = function(type) {
+            if (type === 'raport') window.open(alumni.urlraport, '_blank');
+            if (type === 'ijazah') window.open(alumni.urlijazah, '_blank');
+        }
+    } else {
+        document.getElementById("alumniDashboard").classList.add("hidden");
+        document.getElementById("notFoundMessage").classList.remove("hidden");
+    }
+}
+</script>
+
+<!-- Modifikasi 3: index.html -->
+<!-- Tidak perlu modifikasi khusus, navigasi tetap. -->
+<script>
+function navigateTo(path) {
+    window.location.href = path;
+}
+</script>
