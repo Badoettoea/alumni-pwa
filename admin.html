@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <header>
+        <h1>Admin Portal</h1>
+        <button class="back-button" onclick="window.location.href='index.html'">Kembali</button>
+    </header>
 
+    <main>
+        <div id="pinSection">
+            <h2>Masukkan PIN Admin</h2>
+            <input type="password" id="pinInput" placeholder="Masukkan PIN">
+            <button onclick="verifyPin()">Masuk</button>
+            <p id="pinError" class="error-message hidden">PIN salah. Silakan coba lagi.</p>
+        </div>
+
+        <div id="adminDashboard" class="hidden">
+            <h2>Kelola Data Alumni</h2>
+            
+            <section class="upload-section">
+                <h3>Upload Data Alumni (CSV)</h3>
+                <input type="file" id="csvFile" accept=".csv">
+                <button onclick="processCSV()">Proses CSV</button>
+                <p class="info-text">Format CSV: userid,nama,ttl,nis,nisn,urlfoto,urlraport,urlijazah</p>
+            </section>
+
+            <section class="manual-input">
+                <h3>Input Manual</h3>
+                <form id="alumniForm">
+                    <input type="text" id="userid" placeholder="User ID" required>
+                    <input type="text" id="nama" placeholder="Nama Lengkap" required>
+                    <input type="text" id="ttl" placeholder="Tempat, Tanggal Lahir" required>
+                    <input type="text" id="nis" placeholder="NIS" required>
+                    <input type="text" id="nisn" placeholder="NISN" required>
+                    <input type="text" id="urlfoto" placeholder="URL Foto" required>
+                    <input type="text" id="urlraport" placeholder="URL Raport" required>
+                    <input type="text" id="urlijazah" placeholder="URL Ijazah" required>
+                    
+                    <button type="submit">Simpan Data</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
